@@ -1,0 +1,37 @@
+.tarefa{
+    border: solid 1px black;
+    width: 300px;
+    word-wrap: break-word;
+    height: 100px;
+    
+    
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+}
+.divInput{
+    width: 400px;
+    height: 100px;
+}
+.input{
+    height: 70px;
+}
+.placeHolder{
+    display: flex;
+    align-items: top;
+}
+.categoria{
+    width: 50px;
+    height: 17px;
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.nome{
+    height: 60px;
+    width: 400px;
+    display: flex;
+}
