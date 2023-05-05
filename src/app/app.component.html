@@ -1,44 +1,104 @@
-<H1 class="titulo">  
+<H1 class="titulo">
   TODO APP
 </H1>
-<div class="divInput" >
-  <input class="input"
-  placeholder="Nome" 
-  [(ngModel)]="tarefa.nome">
-    <input class="input"
-          placeholder="Descrição" 
-          [(ngModel)]="tarefa.descricao">
+<div class="divInput">
+  <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome">
+  <input class="input" placeholder="Descrição" [(ngModel)]="tarefa.descricao">
 
-    <button (click)="cadastrarTarefa()">Cadastrar </button>
-    <select [(ngModel)]="tarefa.categoria">
-      <option value="Todo">TODO</option>
-      <option value="Doing">DOING</option>
-      <option value="Done">DONE</option>
-    </select>
-  </div>
 
-<div *ngFor="let tarefa of tarefas;index as indice">
-  <div class="nome">
-    <h3>{{tarefa.nome}}</h3>
-    <h4 class="categoria">{{tarefa.categoria}}</h4>
-  </div>
-  <div class="tarefa">  
-    <h4 >
-      {{tarefa.descricao}}
-    </h4>
-
-  </div>
-
-    
-
+</div>
+<div class="select">
+  <button class="botaoInput" (click)="cadastrarTarefa()">Cadastrar </button>
+  <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
+    <option value="Todo">TODO</option>
+    <option value="Doing">DOING</option>
+    <option value="Done">DONE</option>
+  </select>
+</div>
+<div class="divLista">
   <div>
-      <button  (click)="removerTarefa(indice)">Remover Tarefa</button>
-      <select [(ngModel)]="tarefa.categoria" (change)="mudar()">
-        <option value="Todo">TODO</option>
-        <option value="Doing">DOING</option>
-        <option value="Done">DONE</option>
-      </select>
-   
-    
+    <div class="div">
+      <!--Div Para Todo-->
+      <div class="nomeLista">
+        <h1>TODO</h1>
+      </div>
+      <div *ngFor="let tarefa of tarefas;index as indice" class="todo">
+
+        <div *ngIf="tarefa.categoria=='Todo'">
+          <div class="nome">
+            <h3>{{tarefa.nome}}</h3>
+          </div>
+          <div class="tarefa">
+            <h4>
+              {{tarefa.descricao}}
+            </h4>
+
+          </div>
+
+          <div class="remover">
+            <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
+            <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
+              <option value="Todo">TODO</option>
+              <option value="Doing">DOING</option>
+              <option value="Done">DONE</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="div">
+    <!--Div Para Doing-->
+    <div class="nomeLista">
+      <h1>DOING</h1>
+    </div>
+    <div *ngFor="let tarefa of tarefas;index as indice" class="doing">
+      <div *ngIf="tarefa.categoria=='Doing'">
+        <div class="nome">
+          <h3>{{tarefa.nome}}</h3>
+        </div>
+        <div class="tarefa">
+          <h4>
+            {{tarefa.descricao}}
+          </h4>
+
+        </div>
+
+        <div class="remover">
+          <button class="botoes" (click)="removerTarefa(indice)" >Remover Tarefa</button>
+          <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
+            <option value="Todo">TODO</option>
+            <option value="Doing">DOING</option>
+            <option value="Done">DONE</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="div">
+    <!--Div Para Done-->
+    <div class="nomeLista">
+      <h1>DONE</h1>
+    </div>
+    <div *ngFor="let tarefa of tarefas;index as indice" class="done">
+      <div *ngIf="tarefa.categoria=='Done'">
+        <div class="nome">
+          <h3>{{tarefa.nome}}</h3>
+        </div>
+        <div class="tarefa">
+          <h4>
+            {{tarefa.descricao}}
+          </h4>
+        </div>
+        <div class="remover">
+          <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
+          <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
+            <option value="Todo">TODO</option>
+            <option value="Doing">DOING</option>
+            <option value="Done">DONE</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

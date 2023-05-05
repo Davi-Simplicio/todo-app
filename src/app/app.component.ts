@@ -23,7 +23,7 @@ export class AppComponent {
   tarefa={
     nome: '',
     descricao:'',
-    categoria:''
+    categoria:'Todo'
   }
   defineLista():tarefa[]{
     let a:tarefa [] = [];
@@ -39,13 +39,13 @@ export class AppComponent {
       descricao: this.tarefa.descricao,
       categoria: this.tarefa.categoria
     }
-    if(this.tarefa.nome!=null){
+    if(this.tarefa.nome =='' && this.tarefa.descricao ==''){ 
+    }else{
       this.tarefa.nome=null;
       this.tarefa.descricao=null;
-      this.tarefa.categoria=null;
+      this.tarefa.categoria='Todo';
       this.tarefas.push(trf)
       localStorage.setItem('lista',JSON.stringify(this.tarefas));
-    }else{
     }
   }
   removerTarefa(indice):void{
