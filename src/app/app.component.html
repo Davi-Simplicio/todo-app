@@ -14,6 +14,8 @@
     <option value="Doing">DOING</option>
     <option value="Done">DONE</option>
   </select>
+  <input  class="botaoInput" placeholder="ADICIONAR CATEGORIA" [(ngModel)]="tarefa.categoria" 
+  (change)="categoriaNova">
 </div>
 <div class="divLista">
   <div>
@@ -101,4 +103,36 @@
       </div>
     </div>
   </div>
+
+
+  <div class="nomeLista" *ngFor="let tarefa of tarefas;index as indice">
+    <div *ngIf="tarefa.categoria!='Todo' && tarefa.categoria!='Doing' && tarefa.categoria!='Done'"r>
+    <h1>{{tarefa.categoria}}</h1>
+  </div>
+  <div  class="todo">
+
+    <div *ngIf="tarefa.categoria!='Todo' && tarefa.categoria!='Doing' && tarefa.categoria!='Done'">
+      <h1>{{tarefa.categoria}}</h1>
+      <div class="nome">
+        <h3>{{tarefa.nome}}</h3>
+      </div>
+      <div class="tarefa">
+        <h4>
+          {{tarefa.descricao}}
+        </h4>
+
+      </div>
+
+      <div class="remover">
+        <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
+        <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
+          <option value="Todo">TODO</option>
+          <option value="Doing">DOING</option>
+          <option value="Done">DONE</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+

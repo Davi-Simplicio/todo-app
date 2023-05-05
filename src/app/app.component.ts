@@ -19,6 +19,8 @@ export class AppComponent {
   title = 'todo-app';
   nome: string = '';
   tarefas: tarefa[] = this.defineLista();
+  categorias:String[] = [];
+
 
   tarefa={
     nome: '',
@@ -54,5 +56,8 @@ export class AppComponent {
   }
   mudar():void{
     localStorage.setItem('lista',JSON.stringify(this.tarefas));
+  }
+  novaCategoria(){
+    
   }
 } 
