@@ -1,138 +1,51 @@
 <H1 class="titulo">
   TODO APP
 </H1>
-<div class="divInput">
+<button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
+<div class="divInput" *ngIf="aparecer==true">
   <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome">
   <input class="input" placeholder="Descrição" [(ngModel)]="tarefa.descricao">
 
 
 </div>
-<div class="select">
+<div class="select" *ngIf="aparecer==true">
   <button class="botaoInput" (click)="cadastrarTarefa()">Cadastrar </button>
   <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
-    <option value="Todo">TODO</option>
-    <option value="Doing">DOING</option>
-    <option value="Done">DONE</option>
+    <option *ngFor='let categoria of categorias' [value]="categoria">{{categoria}}</option>
   </select>
-  <input  class="botaoInput" placeholder="ADICIONAR CATEGORIA" [(ngModel)]="tarefa.categoria" 
-  (change)="categoriaNova">
+  <input  class="categoriaNova" placeholder="Adicionar Categoria" [(ngModel)]="categoriaCadastro">
+  <button class="categoriaNova" (click)="categoriaNova()">Nova Categoria</button>
 </div>
 <div class="divLista">
-  <div>
+  <div  *ngFor="let categoria of categorias,index as indice" class="aa">
     <div class="div">
       <!--Div Para Todo-->
-      <div class="nomeLista">
-        <h1>TODO</h1>
+      <div class="nomeLista" >
+        <h1>{{categoria}}</h1>
+        <div *ngIf="categoria!='Todo' && categoria!='Doing' && categoria!='Done'">
+          <button  class="botaoRemoverCategoria" (click)="removerCategoria(indice)">Remover Tarefa</button>
+        </div>
       </div>
       <div *ngFor="let tarefa of tarefas;index as indice" class="todo">
 
-        <div *ngIf="tarefa.categoria=='Todo'">
-          <div class="nome">
-            <h3>{{tarefa.nome}}</h3>
-          </div>
+        <div *ngIf="tarefa.categoria==categoria">
+
           <div class="tarefa">
+            <h2>{{tarefa.nome}}</h2>
+            <br>
+            <br>
             <h4>
               {{tarefa.descricao}}
             </h4>
-
           </div>
-
           <div class="remover">
             <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
             <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
-              <option value="Todo">TODO</option>
-              <option value="Doing">DOING</option>
-              <option value="Done">DONE</option>
+              <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
             </select>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="div">
-    <!--Div Para Doing-->
-    <div class="nomeLista">
-      <h1>DOING</h1>
-    </div>
-    <div *ngFor="let tarefa of tarefas;index as indice" class="doing">
-      <div *ngIf="tarefa.categoria=='Doing'">
-        <div class="nome">
-          <h3>{{tarefa.nome}}</h3>
-        </div>
-        <div class="tarefa">
-          <h4>
-            {{tarefa.descricao}}
-          </h4>
-
-        </div>
-
-        <div class="remover">
-          <button class="botoes" (click)="removerTarefa(indice)" >Remover Tarefa</button>
-          <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
-            <option value="Todo">TODO</option>
-            <option value="Doing">DOING</option>
-            <option value="Done">DONE</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="div">
-    <!--Div Para Done-->
-    <div class="nomeLista">
-      <h1>DONE</h1>
-    </div>
-    <div *ngFor="let tarefa of tarefas;index as indice" class="done">
-      <div *ngIf="tarefa.categoria=='Done'">
-        <div class="nome">
-          <h3>{{tarefa.nome}}</h3>
-        </div>
-        <div class="tarefa">
-          <h4>
-            {{tarefa.descricao}}
-          </h4>
-        </div>
-        <div class="remover">
-          <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
-          <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
-            <option value="Todo">TODO</option>
-            <option value="Doing">DOING</option>
-            <option value="Done">DONE</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="nomeLista" *ngFor="let tarefa of tarefas;index as indice">
-    <div *ngIf="tarefa.categoria!='Todo' && tarefa.categoria!='Doing' && tarefa.categoria!='Done'"r>
-    <h1>{{tarefa.categoria}}</h1>
-  </div>
-  <div  class="todo">
-
-    <div *ngIf="tarefa.categoria!='Todo' && tarefa.categoria!='Doing' && tarefa.categoria!='Done'">
-      <h1>{{tarefa.categoria}}</h1>
-      <div class="nome">
-        <h3>{{tarefa.nome}}</h3>
-      </div>
-      <div class="tarefa">
-        <h4>
-          {{tarefa.descricao}}
-        </h4>
-
-      </div>
-
-      <div class="remover">
-        <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
-        <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
-          <option value="Todo">TODO</option>
-          <option value="Doing">DOING</option>
-          <option value="Done">DONE</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
 
