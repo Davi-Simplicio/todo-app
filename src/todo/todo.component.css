@@ -1,0 +1,128 @@
+.tarefa{
+    border: solid 2px black;
+    width: 200px;
+    padding: 0 10px;
+    word-wrap: break-word; 
+    background-color:pink;
+    color: black;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.divInput{
+    width: 500px;
+    height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.input{
+    height: 70px;
+    background-color: rgb(226, 23, 226);
+    color: white;
+    border: solid 1px black;
+  
+}
+.categoria{
+    width: 50px;
+    height: 17px;
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.nome{
+    height: 60px;
+    width: 200px;
+    word-wrap: break-word;
+    
+}
+.nomeLista{
+    display: flex;
+    justify-content: space-evenly;
+    width: 190px;
+    align-items: center;
+}
+
+.divLista{
+    display: flex;
+    padding: 0 40px;
+    width: 100% -1;
+    background-color: rgba(119, 7, 153, 0.842); 
+    border-radius: 10px;
+    -webkit-box-shadow: -3px 1px 15px 5px #000000; 
+    box-shadow: -3px 1px 15px 5px #000000;
+    margin-top: 30px;
+    overflow-x: auto;
+    border: solid 1px black;
+    font-family:cursive ;
+}
+.div{
+    display: block;
+    width:210px;
+    padding: 0 100px;
+    color: white;
+    
+    
+
+}
+.remover{
+    display: flex;
+    margin: 0 15px;
+    justify-content: space-around;
+}
+.botoes{
+    background-color: transparent;
+    border: solid 1px black;
+}
+.botaoInput{
+    background-color: rgb(226, 23, 226);
+    color: white;
+    width: 90px;
+    border: solid 1px black;
+}
+input::placeholder {
+    color: white;
+}
+.select{
+    width: 500px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.divLista::-webkit-scrollbar-track{
+    background-color: none;
+    border-radius: 10px;
+    
+
+}
+.divLista::-webkit-scrollbar{
+    width: 1px;
+    height: 10px;
+}
+.divLista::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 10px;
+}
+.categoriaNova{
+    background-color: rgb(226, 23, 226);
+    color: white;
+    border: solid 1px black;
+    width: 130px;
+
+}
+.botaoRemoverCategoria{
+    width: 70px;
+    height: 50px;
+    background-color: rgba(255, 0, 0, 0.568);
+    color: white;
+}
+.aparecer{
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}

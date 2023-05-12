@@ -1,0 +1,12 @@
+
+  <div class="botaoCategoria">  
+    <input  class="categoriaNova1" placeholder="Adicionar Categoria" [(ngModel)]="categoriaCadastro">
+    <button class="categoriaNova2" (click)="categoriaNova()">Nova Categoria</button>
+  </div>
+  <div class="divLista">
+    <div class="nomeLista" *ngFor="let categoria of categorias">
+        {{ categoria }}
+        <button  class="botaoRemoverCategoria" (click)="removerCategoria(indice)">Remover Tarefa</button>
+    </div>
+    
+  </div>

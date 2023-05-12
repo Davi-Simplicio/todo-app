@@ -1,0 +1,58 @@
+.categoria{
+    width: 50px;
+    height: 17px;
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.categoriaNova1{
+    background-color: rgb(226, 23, 226);
+    color: white;
+    border: solid 1px black;
+    width: 130px;
+    height: 50px;
+
+}
+.botaoCategoria{
+    display: flex;
+    width: 500px;
+    justify-content: space-evenly;
+    color: white;
+}
+.nomeLista{
+    display: flex;
+    justify-content: space-evenly;
+    width: 190px;
+    align-items: center;
+}
+.divLista{
+    display: flex;
+    padding: 0 40px;
+    width: 100% -1;
+    background-color: rgba(119, 7, 153, 0.842); 
+    border-radius: 10px;
+    -webkit-box-shadow: -3px 1px 15px 5px #000000; 
+    box-shadow: -3px 1px 15px 5px #000000;
+    margin-top: 30px;
+    overflow-x: auto;
+    border: solid 1px black;
+    font-family:cursive ;
+    height: 70px;
+}
+.botaoRemoverCategoria{
+    width: 70px;
+    height: 50px;
+    background-color: rgba(255, 0, 0, 0.568);
+    color: white;
+}
+.categoriaNova2{
+    background-color: rgb(226, 23, 226);
+    color: white;
+    border: solid 1px black;
+    width: 110px;
+    height: 50px;
+    border-radius: 20px;
+
+    
+}

@@ -1,0 +1,42 @@
+<button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
+    <div class="divInput" *ngIf="aparecer==true">
+    <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome">
+    <input class="input" placeholder="Descrição" [(ngModel)]="tarefa.descricao">
+    </div>
+    <div class="select" *ngIf="aparecer==true">
+    <button class="botaoInput" (click)="cadastrarTarefa()">Cadastrar </button>
+    <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
+            <option *ngFor='let categoria of categorias' [value]="categoria">{{categoria}}</option>
+    </select>
+    </div>
+    <div class="divLista">
+        <div  *ngFor="let categoria of categorias,index as indice" class="aa">
+          <div class="div">
+            <!--Div Para Todo-->
+            <div class="nomeLista" >
+              <h1>{{categoria}}</h1>
+                <button  class="botaoRemoverCategoria" (click)="removerCategoria(indice)">Remover Tarefa</button>
+            </div>
+            <div *ngFor="let tarefa of tarefas;index as indice" class="todo">
+      
+              <div *ngIf="tarefa.categoria==categoria">
+      
+                <div class="tarefa">
+                  <h2>{{tarefa.nome}}</h2>
+                  <br>
+                  <br>
+                  <h4>
+                    {{tarefa.descricao}}
+                  </h4>
+                </div>
+                <div class="remover">
+                  <button class="botoes" (click)="removerTarefa(indice)">Remover Tarefa</button>
+                  <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
+                    <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>

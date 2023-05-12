@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-rounting.module';
+import { CategoriaModule} from 'src/categoria/categoria.module';
+import { TodoModule} from 'src/todo/todo.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +13,10 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    CategoriaModule,
+    TodoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
