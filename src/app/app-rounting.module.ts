@@ -9,7 +9,12 @@ const rotas:Route[]=[{
 },{
     path: 'todo',
     component:TodoComponent
-}];
+},{
+    path:'',
+    pathMatch:'full',
+    redirectTo:'todo'
+}
+];
 
 @NgModule({
     imports:[RouterModule.forRoot(rotas)],

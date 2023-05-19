@@ -1,22 +1,22 @@
 import { CommonModule } from "@angular/common";
 import { NgModule, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TodoComponent} from "./todo.component";
+import { TodoComponent } from "./todo.component";
 
 @NgModule({
-    declarations:[
+    declarations: [
         TodoComponent
     ],
-    imports:[
+    imports: [
         CommonModule,
         FormsModule
     ],
-    exports:[
+    exports: [
         TodoComponent
     ]
 })
 
-  
+
 
 export class TodoModule {
 

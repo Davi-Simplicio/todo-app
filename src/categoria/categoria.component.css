@@ -1,4 +1,4 @@
-.categoria{
+.categoria {
     width: 50px;
     height: 17px;
     border: solid 1px black;
@@ -6,53 +6,107 @@
     justify-content: center;
     align-items: flex-end;
 }
-.categoriaNova1{
-    background-color: rgb(226, 23, 226);
+
+.categoriaNova1 {
+    background-color: transparent;
     color: white;
     border: solid 1px black;
     width: 130px;
     height: 50px;
+    margin: 20px;
 
 }
-.botaoCategoria{
+
+.botaoCategoria {
     display: flex;
-    width: 500px;
+    width: 300px;
     justify-content: space-evenly;
     color: white;
 }
-.nomeLista{
+
+.nomeLista {
     display: flex;
-    justify-content: space-evenly;
-    width: 190px;
-    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    align-items: baseline;
+    margin-top: 20px;
+
+
+
 }
-.divLista{
+
+.divLista {
     display: flex;
-    padding: 0 40px;
-    width: 100% -1;
-    background-color: rgba(119, 7, 153, 0.842); 
+    flex-direction: column;
+    padding: 40px 60px;
+    width: 400px;
+    background-color: rgba(119, 7, 153, 0.842);
     border-radius: 10px;
-    -webkit-box-shadow: -3px 1px 15px 5px #000000; 
-    box-shadow: -3px 1px 15px 5px #000000;
-    margin-top: 30px;
-    overflow-x: auto;
     border: solid 1px black;
-    font-family:cursive ;
-    height: 70px;
+    -webkit-box-shadow: -3px 1px 15px 5px #000000;
+    box-shadow: -3px 1px 15px 5px #000000;
+    margin-top: 27px;
+    font-family: cursive;
+    justify-content: center;
+    align-items: center;
+
+
 }
-.botaoRemoverCategoria{
-    width: 70px;
+
+.botaoRemoverCategoria {
+    width: 50px;
     height: 50px;
     background-color: rgba(255, 0, 0, 0.568);
+    border-radius: 100%;
     color: white;
+    margin-right: 20px;
+    font-size: 30px;
+
 }
-.categoriaNova2{
-    background-color: rgb(226, 23, 226);
+
+.categoriaNova2 {
+    background-color: transparent;
     color: white;
     border: solid 1px black;
     width: 110px;
     height: 50px;
     border-radius: 20px;
+    margin: 20px;
 
-    
+
+}
+
+.tituloTabela {
+    display: flex;
+    justify-content: center;
+    font-family: cursive;
+}
+
+.aparecer {
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.tabelaCategorias {
+    display: flex;
+    justify-content: center;
+}
+.divInput{
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 100px;
+    position: absolute;
+    margin-top: 10px;
+    flex-direction: column;
+    background-color: blueviolet;
+    border-radius: 20px;
+    align-items: center;
 }
