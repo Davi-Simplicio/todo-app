@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-interface tarefa {
+interface Tarefa {
   nome: string
   descricao: String
   categoria: String
@@ -13,7 +13,7 @@ interface tarefa {
 export class TodoComponent implements OnInit {
   title = 'todo-app';
   nome: string = '';
-  tarefas: tarefa[] = this.defineLista();
+  tarefas: Tarefa[] = this.defineLista();
   categorias: String[] = this.defineCategoria();
   categoriaCadastro: String = "";
   aparecer: boolean = false;
@@ -22,13 +22,15 @@ export class TodoComponent implements OnInit {
   adicionarTarefa: String = this.adicionar;
 
 
+
   tarefa = {
     nome: null,
     descricao: null,
     categoria: '',
+    
   }
-  defineLista(): tarefa[] {
-    let a: tarefa[] = [];
+  defineLista(): Tarefa[] {
+    let a: Tarefa[] = [];
     if (localStorage.getItem('lista') != null) {
       return JSON.parse(localStorage.getItem("lista"))
     }
@@ -48,7 +50,7 @@ export class TodoComponent implements OnInit {
   }
 
   cadastrarTarefa(): void {
-    const trf: tarefa = {
+    const trf: Tarefa = {
       nome: this.tarefa.nome,
       descricao: this.tarefa.descricao,
       categoria: this.tarefa.categoria
@@ -114,4 +116,23 @@ export class TodoComponent implements OnInit {
     }
     return this.aparecer = false;
   }
+    drag(indice){
+
+    }
+
+    dragEnd(tarefa:Tarefa){
+      tarefa.categoria = JSON.parse(localStorage.getItem('categoriaDrag'));  
+      JSON.parse(localStorage.getItem('indice'))
+      localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    }
+    dragOver(categoria:String){
+      event.preventDefault();
+      localStorage.setItem('categoriaDrag', JSON.stringify(categoria));
+
+    }
+    dragOverIndice(indice){
+      localStorage.setItem('indice',indice)
+    }
+
 }

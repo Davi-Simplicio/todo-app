@@ -1,16 +1,16 @@
-<div class="divInput">
-  <div class="trocaDeAba">
-    <button id="botaoTarefa" *ngIf="aparecer==true" (click)="reiniciar()" class="botaoTarefas"
-      routerLink="/todo"><strong>TAREFAS</strong></button>
-    <button *ngIf="aparecer==true" (click)="reiniciar()" class="botaoTarefas"
-      routerLink="/categoria"><strong>CATEGORIA</strong></button>
+<div class="teste">
+  <div class="divInput">
+    <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
   </div>
-  <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
-  
+  <H1 class="titulo">
+    TODO APP
+  </H1>
+  <div class="trocaDeAba">
+    <button id="botaoTarefa" (click)="reiniciar()" class="botaoTarefas"
+      routerLink="/todo"><strong>TAREFAS</strong></button>
+    <button (click)="reiniciar()" class="botaoTarefas" 
+    routerLink="/categoria"><strong>CATEGORIA</strong></button>
+  </div>
+  <br>
+  <router-outlet></router-outlet>
 </div>
-<H1 class="titulo">
-  TODO APP
-</H1>
-
-<br>
-<router-outlet></router-outlet>

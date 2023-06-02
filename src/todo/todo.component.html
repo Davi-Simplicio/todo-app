@@ -1,36 +1,33 @@
 <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
 <div class="divInput" *ngIf="aparecer==true" (blur)="aparecerInput()">
-  <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome" >
+  <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome">
   <input class="input" placeholder="Descrição" [(ngModel)]="tarefa.descricao">
   <div class="select" *ngIf="aparecer==true">
     <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
-      <option style="background-color: blueviolet;" *ngFor='let categoria of categorias' [value]="categoria">{{categoria}}</option>
+      <option style="background-color: rgb(83,25,77);" *ngFor='let categoria of categorias' [value]="categoria">
+        {{categoria}}</option>
     </select>
     <button class="botaoCadastrar" (click)="cadastrarTarefa()">Cadastrar </button>
-  
   </div>
 </div>
 <div class="tituloTabela">
   <h2>Tarefas</h2>
 </div>
-<div class="divLista"  >
+<div class="divLista" >
   <div *ngIf="tarefa.categoria ==''"><br><br><br><br></div>
-  <div *ngFor="let categoria of categorias,index as indice" class="aa">
+  <div *ngFor="let categoria of categorias,index as indice" class="aa" (dragover)="dragOver(categoria)">
     <div class="div">
       <!--Div Para Todo-->
-      <div class="nomeLista">
+      <div class="nomeLista" >
         <h1>{{categoria}}</h1>
       </div>
-      <div *ngFor="let tarefa of tarefas;index as indice" class="todo">
-
+      <div *ngFor="let tarefa of tarefas;index as indice" class="todo"  (dragend)="dragEnd(tarefa)" (dragover)="dragOverIndice(indice)" >
         <div *ngIf="tarefa.categoria==categoria" class="divMaiorDaTarefa">
-          
-          <div class="tarefa">
+          <div class="tarefa" draggable="true"(dragstart)="drag(indice)">
             <div class="EstilizacaoBotaoRemovertarefa">
               <button class="botaoRemoverTarefa" (click)="removerTarefa(indice)">X</button>
             </div>
-            
-            <h2>{{tarefa.nome}}</h2>
+            <h2 >{{tarefa.nome}}</h2>
             <br>
             <h4>
               {{tarefa.descricao}}
@@ -39,13 +36,10 @@
               <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
                 <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
               </select>
-
-
             </div>
           </div>
-
         </div>
+        <br>
       </div>
     </div>
   </div>
-</div>
