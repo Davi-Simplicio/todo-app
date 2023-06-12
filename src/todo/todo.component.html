@@ -1,13 +1,13 @@
 <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
-<div class="divInput" *ngIf="aparecer==true" (blur)="aparecerInput()">
-  <input class="input" placeholder="Nome" [(ngModel)]="tarefa.nome">
-  <input class="input" placeholder="Descrição" [(ngModel)]="tarefa.descricao">
+<div class="divInput" (keyup)="cliqueEnter($event)" *ngIf="aparecer==true" (blur)="aparecerInput()">
+  <input class="input" id="enter"  placeholder="Nome" [(ngModel)]="tarefa.nome">
+  <input class="input" id="enter"  placeholder="Descrição" [(ngModel)]="tarefa.descricao">
   <div class="select" *ngIf="aparecer==true">
     <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
       <option style="background-color: rgb(83,25,77);" *ngFor='let categoria of categorias' [value]="categoria">
         {{categoria}}</option>
     </select>
-    <button class="botaoCadastrar" (click)="cadastrarTarefa()">Cadastrar </button>
+    <button class="botaoCadastrar" id="a" (click)="cadastrarTarefa()">Cadastrar</button>
   </div>
 </div>
 <div class="tituloTabela">
@@ -15,15 +15,19 @@
 </div>
 <div class="divLista" >
   <div *ngIf="tarefa.categoria ==''"><br><br><br><br></div>
-  <div *ngFor="let categoria of categorias,index as indice" class="aa" (dragover)="dragOver(categoria)">
-    <div class="div">
+  <div *ngFor="let categoria of categorias,index as indice" class="aa" (dragover)="dragOver(categoria, indice)">
+    <div class="div" >
       <!--Div Para Todo-->
       <div class="nomeLista" >
         <h1>{{categoria}}</h1>
       </div>
-      <div *ngFor="let tarefa of tarefas;index as indice" class="todo"  (dragend)="dragEnd(tarefa)" (dragover)="dragOverIndice(indice)" >
-        <div *ngIf="tarefa.categoria==categoria" class="divMaiorDaTarefa">
-          <div class="tarefa" draggable="true"(dragstart)="drag(indice)">
+      <div class="todo">
+        <div class="escolha" *ngIf="quadrado==true">+</div>
+        <div *ngFor="let tarefa of tarefas;index as indice" > 
+        <div *ngIf="tarefa.categoria==categoria" class="divMaiorDaTarefa" (dragleave)="apagaQuadrado(indice)" (dragend)="dragEnd(tarefa)" (dragover)="dragOverIndice(indice);dragOverTarefa(indice)">
+          
+          <div class="tarefa" draggable="true"(dragstart)="drag(indice)" >
+           
             <div class="EstilizacaoBotaoRemovertarefa">
               <button class="botaoRemoverTarefa" (click)="removerTarefa(indice)">X</button>
             </div>
@@ -39,7 +43,9 @@
             </div>
           </div>
         </div>
+        </div>
         <br>
       </div>
     </div>
   </div>
+</div>

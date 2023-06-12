@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { forEach } from "@angular/router/src/utils/collection";
 
 interface Tarefa {
   nome: string
@@ -20,7 +21,7 @@ export class TodoComponent implements OnInit {
   adicionar: String = "+";
   cancelar: String = "-";
   adicionarTarefa: String = this.adicionar;
-
+  quadrado:boolean = false;
 
 
   tarefa = {
@@ -56,12 +57,13 @@ export class TodoComponent implements OnInit {
       categoria: this.tarefa.categoria
     }
 
-    if (this.tarefa.nome != null && this.tarefa.descricao != null) {
+    if (this.tarefa.nome != null || this.tarefa.descricao != null) {
       if (this.tarefa.categoria == '') {
         alert("Adicione uma Categoria Antes de Adicionar uma Tarefa")
       } else {
         this.tarefa.nome = null;
         this.tarefa.descricao = null;
+        this.tarefa.categoria = '';
         this.tarefas.push(trf)
         localStorage.setItem('lista', JSON.stringify(this.tarefas));
         this.aparecer = false;
@@ -122,17 +124,64 @@ export class TodoComponent implements OnInit {
 
     dragEnd(tarefa:Tarefa){
       tarefa.categoria = JSON.parse(localStorage.getItem('categoriaDrag'));  
-      JSON.parse(localStorage.getItem('indice'))
+      let indice = JSON.parse(localStorage.getItem('indice'))
       localStorage.setItem('lista', JSON.stringify(this.tarefas))
+      this.quadrado=false;
+      this.tarefas.splice(indice+1, 0);
+
+      this.tarefas.splice(this.tarefas.indexOf(tarefa), 1)
+      this.tarefas.splice(indice, 0, tarefa)
+      
+      for(let percorrer of this.tarefas){
+        if(percorrer.nome == " " && percorrer.descricao == " "){
+          indice = this.tarefas.indexOf(percorrer);
+          this.tarefas.splice(indice,1)
+          this.cont = 0;
+        }
+      }
+        
+     
+      
 
     }
+
+    apagaQuadrado(indice:number){
+      for(let percorrer of this.tarefas){
+        if(percorrer.nome == " " && percorrer.descricao == " "){
+          indice = this.tarefas.indexOf(percorrer);
+          this.tarefas.splice(indice,1)
+          this.cont = 0;
+        }
+      }
+    }
+
     dragOver(categoria:String){
       event.preventDefault();
       localStorage.setItem('categoriaDrag', JSON.stringify(categoria));
 
     }
+
+    dragStart(indice:number){
+      localStorage.setItem('indice', JSON.stringify(indice));
+    }
+
+    cont = 0;
+    dragOverTarefa(indice:number){
+      if(indice != JSON.parse(localStorage.getItem('indice'))){
+        if(this.cont==0){
+          this.tarefas.splice(indice, 0, {nome:" ", descricao:" ", categoria: this.tarefas[indice].categoria})
+          this.cont++
+        }
+      }
+    }
     dragOverIndice(indice){
       localStorage.setItem('indice',indice)
     }
+    cliqueEnter(event){
+      if(event.key == 'Enter'){
+        this.cadastrarTarefa()
+      }
+    }
 
+    
 }

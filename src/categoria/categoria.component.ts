@@ -88,4 +88,9 @@ export class CategoriaComponent implements OnInit {
     this.aparecer = false;
     this.adicionarTarefa = this.adicionar;
   }
+  cliqueEnter(event){
+    if(event.key == 'Enter'){
+      this.categoriaNova()
+    }
+  }
 }

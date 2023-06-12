@@ -7,6 +7,7 @@
     color: black;
     border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
+    margin-top: 20px;
 }
 
 .divInput {
@@ -58,6 +59,9 @@
     justify-content: space-evenly;
     width: 190px;
     align-items: center;
+    color: white;
+
+    
 }
 
 .divLista {
@@ -202,4 +206,12 @@ select{
     color: white;
     transition: 0.5s;
     position: absolute;
+}
+.escolha{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100px;
+    border: solid 1px white;
 }
