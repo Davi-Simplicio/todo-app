@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { NgModule, OnInit } from "@angular/core";
+import { Component, NgModule, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { TodoModule } from "src/todo/todo.module";
 import { PropriedadeComponent } from "./propriedade.component";
 
 @NgModule({
@@ -9,6 +10,7 @@ import { PropriedadeComponent } from "./propriedade.component";
     ],
     imports: [
         CommonModule,
+        TodoModule,
         FormsModule
     ],
     exports: [
@@ -18,6 +20,4 @@ import { PropriedadeComponent } from "./propriedade.component";
 
 
 
-export class PropriedadeModule {
-
-}
+export class PropriedadeModule { }

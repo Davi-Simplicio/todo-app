@@ -1,10 +1,17 @@
 import { Component, OnInit } from "@angular/core";
-import { forEach } from "@angular/router/src/utils/collection";
+
 
 interface Tarefa {
-  nome: string
-  descricao: String
-  categoria: String
+  nome: string,
+  categoria: String,
+  conteudo:any[],
+  select:any[] 
+}
+interface Propriedade {
+  nome: string,
+  tipo: string,
+  esconder:boolean
+  
 }
 @Component({
   templateUrl: './todo.component.html',
@@ -15,21 +22,33 @@ export class TodoComponent implements OnInit {
   title = 'todo-app';
   nome: string = '';
   tarefas: Tarefa[] = this.defineLista();
+  propriedades: Propriedade[] = this.definePropriedade();
   categorias: String[] = this.defineCategoria();
   categoriaCadastro: String = "";
   aparecer: boolean = false;
   adicionar: String = "+";
   cancelar: String = "-";
   adicionarTarefa: String = this.adicionar;
+  escondido:String = "./imagens/visivel.png";
+  aparecido:String = "./imagens/olho.png";
   quadrado:boolean = false;
 
 
   tarefa = {
     nome: null,
-    descricao: null,
+    conteudo:[], 
     categoria: '',
+    select:[]
     
   }
+  propriedade = {
+    nome:"",
+    tipo:"",
+    esconder:false
+  }
+
+ 
+
   defineLista(): Tarefa[] {
     let a: Tarefa[] = [];
     if (localStorage.getItem('lista') != null) {
@@ -37,10 +56,18 @@ export class TodoComponent implements OnInit {
     }
     return a;
   }
+  definePropriedade(): Propriedade[] {
+    let a: Propriedade[] = [];
+    if (localStorage.getItem('listaPropriedade') != null) {
+      return JSON.parse(localStorage.getItem("listaPropriedade"))
+    }
+    return a;
+  }
 
   ngOnInit(): void {
     this.aparecer = false;
     this.adicionarTarefa = this.adicionar;
+    JSON.parse(localStorage.getItem("listaPropriedade"))
   }
   defineCategoria(): String[] {
     let a: String[] = [];
@@ -53,58 +80,58 @@ export class TodoComponent implements OnInit {
   cadastrarTarefa(): void {
     const trf: Tarefa = {
       nome: this.tarefa.nome,
-      descricao: this.tarefa.descricao,
-      categoria: this.tarefa.categoria
+      conteudo:this.tarefa.conteudo,
+      categoria: this.tarefa.categoria,
+      select:this.tarefa.select
     }
 
-    if (this.tarefa.nome != null || this.tarefa.descricao != null) {
+   
       if (this.tarefa.categoria == '') {
-        alert("Adicione uma Categoria Antes de Adicionar uma Tarefa")
-      } else {
+        if (this.tarefa.nome != null) {
         this.tarefa.nome = null;
-        this.tarefa.descricao = null;
-        this.tarefa.categoria = '';
+        this.tarefa.categoria = 'Sem Categoria';
+        trf.categoria = 'Sem Categoria'
         this.tarefas.push(trf)
         localStorage.setItem('lista', JSON.stringify(this.tarefas));
         this.aparecer = false;
         this.adicionarTarefa = this.adicionar;
+        
+      } else {
+        trf.nome = "Sem Título"
+        trf.categoria = 'Sem Categoria'
+        this.tarefa.categoria = '';
+        this.tarefas.push(trf)
+        localStorage.setItem('lista', JSON.stringify(this.tarefas));
+        this.tarefa.nome = null;
+        this.aparecer = false;
+        this.adicionarTarefa = this.adicionar;
       }
-
     } else {
       this.tarefa.nome = null;
-      this.tarefa.descricao = null;
+      this.tarefa.categoria = '';
+      this.tarefas.push(trf)
+      localStorage.setItem('lista', JSON.stringify(this.tarefas));
       this.aparecer = false;
       this.adicionarTarefa = this.adicionar;
-      alert("Preencha o campo de Nome ou Descrição")
     }
-
+    this.tarefa.conteudo = [];
   }
+
+  pegarValor(nome, tarefa){
+    for(let propriedade of tarefa.conteudo){
+      if(propriedade.nome == nome){
+        return propriedade.valor;
+      }
+    }
+    return "";
+  }
+
   removerTarefa(indice): void {
     this.tarefas.splice(indice, 1);
     localStorage.setItem('lista', JSON.stringify(this.tarefas));
   }
   mudar(): void {
     localStorage.setItem('lista', JSON.stringify(this.tarefas));
-  }
-  categoriaNova() {
-    let categoriaNova = this.categoriaCadastro;
-    if (categoriaNova != '') {
-      this.categorias.push(categoriaNova);
-      localStorage.setItem('listaCategoria', JSON.stringify(this.categorias));
-      this.categoriaCadastro = '';
-    }
-
-  }
-  removerCategoria(indice): void {
-
-    for (let tarefa of this.tarefas) {
-      if (tarefa.categoria == this.categorias[indice]) {
-        this.tarefas.splice(this.tarefas.indexOf(tarefa), 1);
-      }
-    }
-    localStorage.setItem('lista', JSON.stringify(this.tarefas));
-    this.categorias.splice(indice, 1);
-    localStorage.setItem('listaCategoria', JSON.stringify(this.categorias));
   }
   aparecerInput(): boolean {
     if (this.aparecer == false) {
@@ -113,7 +140,6 @@ export class TodoComponent implements OnInit {
     } else {
       this.adicionarTarefa = this.adicionar;
       this.tarefa.nome = null;
-      this.tarefa.descricao = null;
 
     }
     return this.aparecer = false;
@@ -131,29 +157,8 @@ export class TodoComponent implements OnInit {
 
       this.tarefas.splice(this.tarefas.indexOf(tarefa), 1)
       this.tarefas.splice(indice, 0, tarefa)
-      
-      for(let percorrer of this.tarefas){
-        if(percorrer.nome == " " && percorrer.descricao == " "){
-          indice = this.tarefas.indexOf(percorrer);
-          this.tarefas.splice(indice,1)
-          this.cont = 0;
-        }
-      }
-        
-     
-      
-
     }
 
-    apagaQuadrado(indice:number){
-      for(let percorrer of this.tarefas){
-        if(percorrer.nome == " " && percorrer.descricao == " "){
-          indice = this.tarefas.indexOf(percorrer);
-          this.tarefas.splice(indice,1)
-          this.cont = 0;
-        }
-      }
-    }
 
     dragOver(categoria:String){
       event.preventDefault();
@@ -165,13 +170,9 @@ export class TodoComponent implements OnInit {
       localStorage.setItem('indice', JSON.stringify(indice));
     }
 
-    cont = 0;
+
     dragOverTarefa(indice:number){
       if(indice != JSON.parse(localStorage.getItem('indice'))){
-        if(this.cont==0){
-          this.tarefas.splice(indice, 0, {nome:" ", descricao:" ", categoria: this.tarefas[indice].categoria})
-          this.cont++
-        }
       }
     }
     dragOverIndice(indice){
@@ -182,6 +183,37 @@ export class TodoComponent implements OnInit {
         this.cadastrarTarefa()
       }
     }
+    i=0;
 
-    
+    definirPropriedades(event):void{
+      const evet = event.target as HTMLInputElement;
+      
+      let permissao = true;
+      for(let propriedade of this.tarefa.conteudo){
+        if(propriedade.nome == evet.id){
+          this.tarefa.conteudo[this.tarefa.conteudo.indexOf(propriedade)].valor = evet.value;
+          permissao = false;
+        }
+      }
+      if(permissao){
+        this.tarefa.conteudo.push({nome:evet.id, valor:evet.value});
+      }
+    }
+    esconderPropriedadeFuncao(propriedade): void {
+      if (!propriedade.esconder) {
+        propriedade.esconder = true;
+        localStorage.setItem('listaPropriedade',JSON.stringify(this.propriedades))
+      } else {
+        propriedade.esconder = false;
+        localStorage.setItem('listaPropriedade',JSON.stringify(this.propriedades))
+      }
+    }
+    imagemOlho(propriedade):String{
+      if(propriedade.esconder){
+        return this.escondido;  
+      }else{
+        return this.aparecido;
+      }
+
+    }
 }

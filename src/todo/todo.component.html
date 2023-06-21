@@ -1,7 +1,32 @@
 <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
-<div class="divInput" (keyup)="cliqueEnter($event)" *ngIf="aparecer==true" (blur)="aparecerInput()">
-  <input class="input" id="enter"  placeholder="Nome" [(ngModel)]="tarefa.nome">
-  <input class="input" id="enter"  placeholder="Descrição" [(ngModel)]="tarefa.descricao">
+<div>
+  <div class="divInput" (keyup)="cliqueEnter($event)" *ngIf="aparecer==true" (blur)="aparecerInput()">
+    <input class="input" id="enter"  placeholder="Nome" [(ngModel)]="tarefa.nome">
+  <div *ngFor='let propriedade of propriedades'>
+    
+    <!--ngIf para input de texto-->
+    <div *ngIf="propriedade.tipo == 'texto'">
+      {{propriedade.nome}}
+    <input type="text" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
+    </div>
+    <!--ngIf para input de numero-->
+    <div *ngIf="propriedade.tipo == 'numero'">
+      {{propriedade.nome}}
+    <input type="number" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
+    </div>
+    <!--ngIf para select-->
+
+    <div >
+      <div *ngIf="propriedade.tipo == 'select'">
+        {{propriedade.nome}}
+        <select  [(ngModel)]="tarefa.select" aria-placeholder="Categoria">
+          <option  [value]="tarefa.select" *ngFor="let tarefa of propriedade.select">
+            {{tarefa}}</option>
+        </select>
+      </div>
+    </div>
+</div>
+  
   <div class="select" *ngIf="aparecer==true">
     <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
       <option style="background-color: rgb(83,25,77);" *ngFor='let categoria of categorias' [value]="categoria">
@@ -33,9 +58,29 @@
             </div>
             <h2 >{{tarefa.nome}}</h2>
             <br>
-            <h4>
-              {{tarefa.descricao}}
-            </h4>
+            <div *ngFor="let propriedade of propriedades">
+              <button class="olho" (click)="esconderPropriedadeFuncao(propriedade)"><img [src]="imagemOlho(propriedade)" alt=""></button>
+              {{propriedade.nome}}
+              <!--ngIf para input de texto-->
+              <div *ngIf="propriedade.tipo == 'texto' && propriedade.esconder==false && tarefa.nome == this.tarefa.nome">
+                
+                <input type="textp" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+              </div>
+              <!--ngIf para input de numero-->
+              <div *ngIf="propriedade.tipo == 'numero' && propriedade.esconder==false">
+
+                <input type="number" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+              </div>
+              <!--ngIf para select-->
+              <div *ngIf="propriedade.tipo == 'select' && propriedade.esconder==false">
+
+                <select   aria-placeholder="Categoria" class="selectPropriedadeTarefa">
+                  <option  [value]="tarefa" *ngFor="let tarefa of propriedade.select">
+                    {{tarefa}}</option>
+                </select>
+
+              </div>
+          </div>
             <div class="remover">
               <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
                 <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
@@ -48,4 +93,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

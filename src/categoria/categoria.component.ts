@@ -85,8 +85,15 @@ export class CategoriaComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    let categoriaNova = this.categoriaCadastro;
     this.aparecer = false;
     this.adicionarTarefa = this.adicionar;
+    if(this.categorias.length == 0){
+      categoriaNova = 'Sem Categoria'
+      this.categorias.push(categoriaNova);
+      localStorage.setItem('listaCategoria', JSON.stringify(this.categorias));
+    }
+    
   }
   cliqueEnter(event){
     if(event.key == 'Enter'){

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/models/users/user';
+import { UserRepository } from 'src/repositories/user.repository';
+
 
 
 @Component({
@@ -11,6 +14,32 @@ export class AppComponent implements OnInit {
   adicionar: String = "☰";
   cancelar: String = "-";
   adicionarTarefa: String = this.adicionar;
+  title = "teste-app";
+
+  private userId: string = 'davi';
+  private users:User[] = [];
+  private user:User|undefined;
+
+  constructor(
+
+    private userRepository: UserRepository
+  ){
+    this.users = this.userRepository.getUsers();
+    this.user = this.getUsuarioLogado();
+    console.log(this.user);
+  }
+
+  private hasPermission(permission:string):boolean{
+    return 
+  }
+
+  private getUsuarioLogado():User{
+    return this.users.find((user) => {
+    return user.id === this.userId
+    });
+  }
+  
+
 
   aparecerInput(): boolean {
     if (this.aparecer == false) {

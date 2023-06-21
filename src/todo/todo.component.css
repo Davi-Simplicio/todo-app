@@ -23,6 +23,7 @@
     align-items: center;
     -webkit-box-shadow: -3px 1px 15px 5px #000000;
     box-shadow: -3px 1px 15px 5px #000000;
+    color:white;
     
 
 }
@@ -39,7 +40,7 @@
 }
 
 .categoria {
-    width: 50px;
+    width: 1000px;
     height: 17px;
     border: solid 1px black;
     display: flex;
@@ -60,7 +61,7 @@
     width: 190px;
     align-items: center;
     color: white;
-
+    font-size: 10px;
     
 }
 
@@ -214,4 +215,14 @@ select{
     height: 50px;
     width: 100px;
     border: solid 1px white;
+}
+option{
+    color:white;
+}
+.selectPropriedadeTarefa{
+    color: white;
+}
+.olho img{
+    max-width: 10px;
+    max-height: 10px;
 }
