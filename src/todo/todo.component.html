@@ -1,97 +1,97 @@
 <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
 <div>
-  <div class="divInput" (keyup)="cliqueEnter($event)" *ngIf="aparecer==true" (blur)="aparecerInput()">
-    <input class="input" id="enter"  placeholder="Nome" [(ngModel)]="tarefa.nome">
-  <div *ngFor='let propriedade of propriedades'>
-    
-    <!--ngIf para input de texto-->
-    <div *ngIf="propriedade.tipo == 'texto'">
-      {{propriedade.nome}}
-    <input type="text" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
-    </div>
-    <!--ngIf para input de numero-->
-    <div *ngIf="propriedade.tipo == 'numero'">
-      {{propriedade.nome}}
-    <input type="number" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
-    </div>
-    <!--ngIf para select-->
-
-    <div >
-      <div *ngIf="propriedade.tipo == 'select'">
+  <div class="divInput" (keyup)="cliqueEnter($event)" *ngIf="aparecer == true" (blur)="aparecerInput()">
+    <input class="input" id="enter" placeholder="Nome" [(ngModel)]="tarefa.nome">
+    <div *ngFor='let propriedade of propriedades'>
+      <!--ngIf for text input-->
+      <div *ngIf="propriedade.tipo == 'texto'">
         {{propriedade.nome}}
-        <select  [(ngModel)]="tarefa.select" aria-placeholder="Categoria">
-          <option  [value]="tarefa.select" *ngFor="let tarefa of propriedade.select">
-            {{tarefa}}</option>
-        </select>
+        <input class="inputPropriedade" type="text" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
+      </div>
+      <!--ngIf for number input-->
+      <div *ngIf="propriedade.tipo == 'numero'">
+        {{propriedade.nome}}
+        <input class="inputPropriedade" type="number" (input)="definirPropriedades($event)" [id]="propriedade.nome" (keyup)="cliqueEnter($event)">
+      </div>
+      <!--ngIf for select-->
+      <div>
+        <div *ngIf="propriedade.tipo == 'select'">
+          {{propriedade.nome}}
+          <select [(ngModel)]="tarefa.select" aria-placeholder="Categoria">
+            <option [value]="tarefa.select" *ngFor="let tarefa of propriedade.select">
+              {{tarefa}}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
-</div>
-  
-  <div class="select" *ngIf="aparecer==true">
-    <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
-      <option style="background-color: rgb(83,25,77);" *ngFor='let categoria of categorias' [value]="categoria">
-        {{categoria}}</option>
-    </select>
-    <button class="botaoCadastrar" id="a" (click)="cadastrarTarefa()">Cadastrar</button>
+    <div class="select" *ngIf="aparecer == true">
+      <select class="botaoInput" [(ngModel)]="tarefa.categoria" aria-placeholder="Categoria">
+        <option style="background-color: rgb(83, 25, 77);" *ngFor='let categoria of categorias' [value]="categoria">
+          {{categoria}}
+        </option>
+      </select>
+      <button class="botaoCadastrar" id="a" (click)="cadastrarTarefa()" [disabled]="!hasPermission('Add')">Cadastrar</button>
+    </div>
   </div>
-</div>
-<div class="tituloTabela">
-  <h2>Tarefas</h2>
-</div>
-<div class="divLista" >
-  <div *ngIf="tarefa.categoria ==''"><br><br><br><br></div>
-  <div *ngFor="let categoria of categorias,index as indice" class="aa" (dragover)="dragOver(categoria, indice)">
-    <div class="div" >
-      <!--Div Para Todo-->
-      <div class="nomeLista" >
-        <h1>{{categoria}}</h1>
-      </div>
-      <div class="todo">
-        <div class="escolha" *ngIf="quadrado==true">+</div>
-        <div *ngFor="let tarefa of tarefas;index as indice" > 
-        <div *ngIf="tarefa.categoria==categoria" class="divMaiorDaTarefa" (dragleave)="apagaQuadrado(indice)" (dragend)="dragEnd(tarefa)" (dragover)="dragOverIndice(indice);dragOverTarefa(indice)">
-          
-          <div class="tarefa" draggable="true"(dragstart)="drag(indice)" >
-           
-            <div class="EstilizacaoBotaoRemovertarefa">
-              <button class="botaoRemoverTarefa" (click)="removerTarefa(indice)">X</button>
+  <div class="caixaTitulo">  
+    <div class="tituloTabela">
+      <h2>Tarefas</h2>
+    </div>
+  </div>
+  <div class="divLista">
+    <div *ngIf="tarefa.categoria == '' || tarefa.categoria == undefined"><br><br><br><br></div>
+    <div *ngFor="let categoria of categorias; index as indice" class="aa" (dragover)="dragOver(categoria, indice)">
+      <div class="div">
+        <!--Div for Tarefa-->
+        <div class="nomeLista">
+          <h1>{{categoria}}</h1>
+        </div> 
+        <div class="todo">
+          <div class="escolha" *ngIf="quadrado == true">+</div>
+          <div *ngFor="let tarefa of tarefas; index as indice">
+            <div *ngIf="tarefa.categoria == categoria" class="divMaiorDaTarefa" (dragleave)="apagaQuadrado(indice)"
+              (dragend)="dragEnd(tarefa)" (dragover)="dragOverIndice(indice); dragOverTarefa(indice)">
+              <div class="tarefa" draggable="hasPermission('MoveCard')" (dragstart)="drag(indice)">
+                <div class="EstilizacaoBotaoRemovertarefa">
+                  <button class="botaoRemoverTarefa" (click)="removerTarefa(indice)" [disabled]="!hasPermission('Remove')">X</button>
+                </div >
+                <h2 >{{tarefa.nome}}</h2>
+                <br>
+                <div *ngFor="let propriedade of propriedades">
+                  <button class="olho" [disabled]="!hasPermission('Edit')" (click)="esconderPropriedadeFuncao(propriedade)">
+                    <img [src]="imagemOlho(propriedade)" alt="">
+                  </button>
+                  {{propriedade.nome}}
+                  <!--ngIf for text input-->
+                  <div *ngIf="propriedade.tipo == 'texto' && propriedade.esconder == false && tarefa.nome == this.tarefa.nome">
+                    <input id="editar" type="text" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+                  </div>
+                  <!--ngIf for number input-->
+                  <div *ngIf="propriedade.tipo == 'numero' && propriedade.esconder == false">
+                    <input type="number" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+                  </div>
+                  <!--ngIf for select-->
+                  <div *ngIf="propriedade.tipo == 'select' && propriedade.esconder == false">
+                    <select aria-placeholder="Categoria" class="selectPropriedadeTarefa">
+                      <option [value]="tarefa" *ngFor="let tarefa of propriedade.select">
+                        {{tarefa}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="remover">
+                  <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()" [disabled]="!hasPermission('Edit')">
+                    <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <h2 >{{tarefa.nome}}</h2>
-            <br>
-            <div *ngFor="let propriedade of propriedades">
-              <button class="olho" (click)="esconderPropriedadeFuncao(propriedade)"><img [src]="imagemOlho(propriedade)" alt=""></button>
-              {{propriedade.nome}}
-              <!--ngIf para input de texto-->
-              <div *ngIf="propriedade.tipo == 'texto' && propriedade.esconder==false && tarefa.nome == this.tarefa.nome">
-                
-                <input type="textp" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
-              </div>
-              <!--ngIf para input de numero-->
-              <div *ngIf="propriedade.tipo == 'numero' && propriedade.esconder==false">
-
-                <input type="number" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
-              </div>
-              <!--ngIf para select-->
-              <div *ngIf="propriedade.tipo == 'select' && propriedade.esconder==false">
-
-                <select   aria-placeholder="Categoria" class="selectPropriedadeTarefa">
-                  <option  [value]="tarefa" *ngFor="let tarefa of propriedade.select">
-                    {{tarefa}}</option>
-                </select>
-
-              </div>
           </div>
-            <div class="remover">
-              <select class="botoes" [(ngModel)]="tarefa.categoria" (change)="mudar()">
-                <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
-              </select>
-            </div>
-          </div>
+          <br>
         </div>
-        </div>
-        <br>
       </div>
     </div>
   </div>
 </div>
-</div>
+

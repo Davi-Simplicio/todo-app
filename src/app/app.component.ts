@@ -29,9 +29,6 @@ export class AppComponent implements OnInit {
     console.log(this.user);
   }
 
-  private hasPermission(permission:string):boolean{
-    return 
-  }
 
   private getUsuarioLogado():User{
     return this.users.find((user) => {

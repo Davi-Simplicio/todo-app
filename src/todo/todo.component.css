@@ -8,9 +8,9 @@
     border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 20px;
-}
-
-.divInput {
+  }
+  
+  .divInput {
     width: 300px;
     height: 300px;
     display: flex;
@@ -18,17 +18,14 @@
     margin-left: 100px;
     position: absolute;
     flex-direction: column;
-    background-color: rgb(83,25,77);
+    background-color: rgb(83, 25, 77);
     border-radius: 20px;
     align-items: center;
-    -webkit-box-shadow: -3px 1px 15px 5px #000000;
     box-shadow: -3px 1px 15px 5px #000000;
-    color:white;
-    
-
-}
-
-.input {
+    color: white;
+  }
+  
+  .input {
     width: 70%;
     height: 70px;
     background-color: transparent;
@@ -36,116 +33,105 @@
     border: solid 1px black;
     display: flex;
     justify-content: center;
-
-}
-
-.categoria {
+  }
+  
+  .categoria {
     width: 1000px;
     height: 17px;
     border: solid 1px black;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-}
-
-.nome {
+  }
+  
+  .nome {
     height: 60px;
     width: 200px;
     word-wrap: break-word;
-
-}
-
-.nomeLista {
+  }
+  
+  .nomeLista {
     display: flex;
     justify-content: space-evenly;
     width: 190px;
     align-items: center;
     color: white;
-    font-size: 10px;
-    
-}
-
-.divLista {
+    font-size: 13px;
+  }
+  
+  .divLista {
     display: flex;
     padding: 0 40px;
-    width: 100% -1;
-    background-color:rgb(83,25,77);
+    width: 100% - 1px;
+    background-color: #693668;
     border-radius: 10px;
-    -webkit-box-shadow: -3px 1px 15px 5px #000000;
-    box-shadow: -3px 1px 15px 5px #000000;
+    box-shadow: -3px 1px 15px 5px #1B1B3A;
     margin-top: 30px;
     overflow-x: auto;
-    border: solid 1px black;
+    border: solid 5px #1B1B3A;
     font-family: cursive;
-}
-
-.div {
+  }
+  
+  .div {
     display: block;
     width: 210px;
     padding: 0 100px;
     color: white;
-
-
-
-}
-
-.remover {
+  }
+  
+  .remover {
     display: flex;
     justify-content: space-evenly;
     width: 200px;
     margin-bottom: 3px;
-}
-
-.botoes {
+  }
+  
+  .botoes {
     background-color: transparent;
     border: solid 1px black;
-}
-
-.botaoInput {
+  }
+  
+  .botaoInput {
     background-color: transparent;
     color: white;
     width: 90px;
     border: solid 1px black;
-}
-
-input::placeholder {
+  }
+  
+  input::placeholder {
     color: white;
-}
-
-.select {
+  }
+  
+  .select {
     width: 300px;
     height: 50px;
     display: flex;
     justify-content: space-evenly;
-   
-}
-
-.divLista::-webkit-scrollbar-track {
+  }
+  
+  .divLista::-webkit-scrollbar-track {
     background-color: none;
     border-radius: 10px;
-
-
-}
-
-.divLista::-webkit-scrollbar {
+  }
+  
+  .divLista::-webkit-scrollbar {
     width: 1px;
     height: 10px;
-}
-
-.divLista::-webkit-scrollbar-thumb {
+  }
+  
+  .divLista::-webkit-scrollbar-thumb {
     background-color: black;
     border-radius: 10px;
-}
-
-.categoriaNova {
-    background-color: rgb(83,25,77);
+  }
+  
+  .categoriaNova {
+    background-color: rgb(83, 25, 77);
     color: white;
     border: solid 1px black;
     width: 130px;
-
-}
-
-.aparecer {
+  }
+  
+  .aparecer {
     height: 50px;
     width: 50px;
     font-size: 40px;
@@ -155,27 +141,37 @@ input::placeholder {
     margin: 20px;
     position: absolute;
     transition: 0.5s;
-
-}
-
-.botaoCadastrar {
+  }
+  
+  .botaoCadastrar {
     background-color: transparent;
     color: white;
     width: 90px;
     border: solid 1px black;
     border-radius: 10px;
-}
-
-.tituloTabela {
+  }
+  
+  .tituloTabela {
+    width: 160px;
+    height: 70px;
     display: flex;
+    border-radius: 30px;
     justify-content: center;
     font-family: cursive;
-    margin-top: 125px;
-}
-select{
-    background-color: rgb(83,25,77);
-}
-.botaoRemoverTarefa{
+
+    border: 4px solid black;
+  }
+  .caixaTitulo{
+    display: flex;
+    justify-content: center;
+    margin-top: 115px;
+  }
+  
+  select {
+    background-color: rgb(83, 25, 77);
+  }
+  
+  .botaoRemoverTarefa {
     height: 30px;
     width: 30px;
     border: solid pink 1px;
@@ -183,23 +179,26 @@ select{
     background-color: pink;
     border-radius: 0% 30% 0% 0%;
     font-size: 15px;
-}
-.botaoRemoverTarefa:hover{
+  }
+  
+  .botaoRemoverTarefa:hover {
     background-color: red;
     color: white;
-}
-.EstilizacaoBotaoRemovertarefa{
-   
+  }
+  
+  .EstilizacaoBotaoRemovertarefa {
     display: flex;
     justify-content: end;
     width: 210px;
-}
-.divMaiorDaTarefa{
+  }
+  
+  .divMaiorDaTarefa {
     width: 180px;
     display: flex;
     justify-content: center;
-}
-.aparecer:hover{
+  }
+  
+  .aparecer:hover {
     width: 70px;
     height: 70px;
     font-size: 50px;
@@ -207,22 +206,42 @@ select{
     color: white;
     transition: 0.5s;
     position: absolute;
-}
-.escolha{
+  }
+  
+  .escolha {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
     width: 100px;
     border: solid 1px white;
-}
-option{
-    color:white;
-}
-.selectPropriedadeTarefa{
+  }
+  
+  option {
     color: white;
-}
-.olho img{
+  }
+  
+  .selectPropriedadeTarefa {
+    color: white;
+  }
+  
+  .olho img {
     max-width: 10px;
     max-height: 10px;
+  }
+  
+  .inputPropriedade {
+    width: 70%;
+    height: 30px;
+    background-color: transparent;
+    color: white;
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+  }
+  
+
+  #editar:disabled{
+    background-color: blue;
 }
+  

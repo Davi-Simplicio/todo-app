@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { User } from 'src/models/users/user';
+import { UserRepository } from 'src/repositories/user.repository';
 
 interface tarefa {
   nome: string
@@ -20,6 +22,16 @@ export class CategoriaComponent implements OnInit {
   adicionar: String = "+";
   cancelar: String = "-";
   adicionarTarefa: String = this.adicionar;
+  private userId: string = 'joao';
+  private users: User[] = [];
+  user!: User;
+
+  constructor(private userRepository: UserRepository) {
+    this.users = this.userRepository.getUsers();
+    this.user = this.getUsuarioLogado();
+    console.log(this.user);
+  }
+
   tarefa = {
     nome: '',
     descricao: '',
@@ -99,5 +111,11 @@ export class CategoriaComponent implements OnInit {
     if(event.key == 'Enter'){
       this.categoriaNova()
     }
+  }
+  hasPermission(permission: string): boolean {
+    return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+  }
+  private getUsuarioLogado(): User {
+    return this.users.find((user) => user.id === this.userId) as User;
   }
 }

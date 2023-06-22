@@ -2,7 +2,7 @@
 <div class="divInput" *ngIf="aparecer==true">
   <div class="botaoCategoria" (keyup)="cliqueEnter($event)">
     <input class="categoriaNova1" placeholder="Adicionar Categoria" [(ngModel)]="categoriaCadastro">
-    <button class="categoriaNova2" (click)="categoriaNova()">Nova Categoria</button>
+    <button class="categoriaNova2" (click)="categoriaNova()" [disabled]="!hasPermission('Add')">Nova Categoria</button>
   </div>
 </div>
 <div class="tituloTabela">
@@ -12,7 +12,7 @@
   <div class="divLista">
 
     <div class="nomeLista" *ngFor="let categoria of categorias,index as indice">
-      <button class="botaoRemoverCategoria" (click)="removerCategoria(indice)">X</button>
+      <button class="botaoRemoverCategoria" (click)="removerCategoria(indice)"[disabled]="!hasPermission('Remove')">X</button>
       {{categoria}}
         
     </div>

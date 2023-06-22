@@ -1,5 +1,5 @@
 <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
-<div class="divInput" *ngIf="aparecer==true">
+<div class="divInput" *ngIf="aparecer == true">
   <div class="botaoCategoria" (keyup)="cliqueEnter($event)">
     <input class="categoriaNova1" placeholder="Adicionar Propriedade" [(ngModel)]="propriedade.nome">
     <select [(ngModel)]="propriedade.tipo" class="selectTipoPropriedade">
@@ -7,35 +7,32 @@
       <option value="numero">Número</option>
       <option value="select">Select</option>
     </select>
-   
-    <button class="categoriaNova2" (click)="propriedadeNova()">Nova Propriedade</button>
+    <button class="categoriaNova2" (click)="propriedadeNova()" [disabled]="!hasPermission('Add')">Nova Propriedade</button>
   </div>
-  
 </div>
-  <div class="estilizacaoBordaSelect"  *ngIf="propriedade.tipo=='select'">
-    <div class="divSelect">
-      <input type="text" class="inputSelect" [(ngModel)]="novaOpcao" (keyup)="cliqueEnter($event)">
-      <button class="botaoSelect" (click)="definirOpcoesSelect($event)" [id]="propriedade.nome" >
-        Nova Opção</button>
-  
-    </div>  
+<div class="estilizacaoBordaSelect" *ngIf="propriedade.tipo=='select'">
+  <div class="divSelect">
+    <input type="text" class="inputSelect" [(ngModel)]="novaOpcao" (keyup)="cliqueEnter($event)">
+    <button class="botaoSelect" (click)="definirOpcoesSelect($event)" [id]="propriedade.nome">Nova Opção</button>
   </div>
+</div>
 
 <div class="tituloTabela">
   <h2>Propriedades</h2>
 </div>
 <div class="tabelaCategorias">
   <div class="divLista">
-
-    <div class="nomeLista" *ngFor="let propriedade of propriedades,index as indice">
-      <!-- div para separação de propriedades -->
-      <div class="divBotaoRemover"><button class="botaoRemoverCategoria" (click)="removerCategoria(indice)">X</button></div>
-      <!-- div para o nome da propriedade -->
-      <div class="divNomePropriedade"> {{propriedade.nome}}</div>
-      <!-- div para o tipo da propriedade -->
+    <div class="nomeLista" *ngFor="let propriedade of propriedades, index as indice">
+      <div class="divBotaoRemover">
+        <button class="botaoRemoverCategoria" [disabled]="!hasPermission('Remove')" (click)="removerCategoria(indice)">X</button>
+      </div>
+      <div class="divNomePropriedade">{{propriedade.nome}}</div>
       <div class="divtIPOPropriedade">{{propriedade.tipo}}</div>
-      <!-- div para a imagem de olho -->
-      <div class="divImagemOlho"> <button class="olho" (click)="esconderPropriedadeFuncao(propriedade)"><img [src]="imagemOlho(propriedade)" alt=""></button></div>
+      <div class="divImagemOlho">
+        <button class="olho" (click)="esconderPropriedadeFuncao(propriedade)" [disabled]="!hasPermission('Edit')">
+          <img [src]="imagemOlho(propriedade)" alt="">
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,13 +1,14 @@
 <div class="teste">
   <div class="divInput">
+    <div class="barraDeMenu" *ngIf="aparecer">
+
+    </div>
     <button class="aparecer" (click)="aparecerInput()">{{adicionarTarefa}}</button>
   </div>
+
   <H1 class="titulo">
     TODO APP
   </H1>
-  <form>
-    
-  </form>
   <div class="trocaDeAba">
     <button id="botaoTarefa" (click)="reiniciar()" class="botaoTarefas"
       routerLink="/todo"><strong>TAREFAS</strong></button>
@@ -19,3 +20,4 @@
   <br>
   <router-outlet></router-outlet>
 </div>
+

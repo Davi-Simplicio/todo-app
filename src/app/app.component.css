@@ -64,3 +64,10 @@ h1 {
     border: solid black 2px;
     border-radius: 0px 0px 10px 10px;
 }
+.barraDeMenu{
+    width: 10%;
+    height: 100% ;
+    background-color: #FCF7F8;
+    position: absolute;
+}
+
