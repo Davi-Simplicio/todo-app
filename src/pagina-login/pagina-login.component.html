@@ -1,0 +1,14 @@
+<h1>Login</h1>
+
+<div class="cadastro">
+  <h4>Digite seu NickName</h4>
+  <input type="text" placeholder="Nickname" [(ngModel)]="id">
+  <h4>Digite seu Senha</h4>
+  <input type="password" placeholder="Senha" [(ngModel)]="senha">
+  <button (click)="logaUsuario()">LOGAR</button>
+  <div class="linkParaCadastro">
+    <P>Não possui uma Conta?</P>
+    <p (click)="reiniciar()" class="botaoTarefas" 
+    routerLink="/pagina-cadastro"><strong>Cadastre-se</strong></p>
+  </div>
+  </div>

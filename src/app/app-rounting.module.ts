@@ -3,20 +3,34 @@ import { Route, RouterModule } from "@angular/router";
 import { CategoriaComponent } from "src/categoria/categoria.component";
 import { TodoComponent } from "src/todo/todo.component";
 import { PropriedadeComponent } from "src/propriedade/propriedade.component";
+import { AuthGuardService } from "src/services/auth-guard.service";
+import {PaginaCadastroComponent} from "src/pagina-cadastro/pagina-cadastro.component";
+import { PaginaLoginComponent } from "src/pagina-login/pagina-login.component";
 
 const rotas:Route[]=[{
     path: 'categoria',
-    component:CategoriaComponent   
+    component:CategoriaComponent, 
+    canActivate:[AuthGuardService]  
 },{
     path: 'todo',
-    component:TodoComponent
+    component:TodoComponent,
+    canActivate:[AuthGuardService]  
 },{
     path: 'propriedade',
-    component:PropriedadeComponent
+    component:PropriedadeComponent,
+    canActivate:[AuthGuardService]  
+},
+{
+    path: 'pagina-cadastro',
+    component:PaginaCadastroComponent
+},
+{
+    path: 'pagina-login',
+    component:PaginaLoginComponent
 },{
     path:'',
     pathMatch:'full',
-    redirectTo:'todo'
+    redirectTo:'pagina-login'
 }
 ];
 

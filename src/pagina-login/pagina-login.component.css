@@ -1,0 +1,32 @@
+.cadastro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+h1{
+    display: flex;
+    justify-content: center;
+    font-family: cursive;
+}
+.linkParaCadastro{
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+button{
+    width: 75px;
+    height: 40px;
+    margin-top: 30px;
+    background-color: transparent;
+    border-radius: 30px;
+    border: solid 1px black;
+}
+input{
+    width: 200px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 30px;
+    border: solid 1px black;
+    
+}

@@ -65,11 +65,13 @@
                   {{propriedade.nome}}
                   <!--ngIf for text input-->
                   <div *ngIf="propriedade.tipo == 'texto' && propriedade.esconder == false && tarefa.nome == this.tarefa.nome">
-                    <input id="editar" type="text" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+                    <input id="editar" type="text" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" [(ngModel)]="conteudoInput"  [id]="propriedade.nome">
+                    <button (click)="definirPropriedades()">salvar</button>
                   </div>
                   <!--ngIf for number input-->
                   <div *ngIf="propriedade.tipo == 'numero' && propriedade.esconder == false">
-                    <input type="number" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+                    <input type="number" [disabled]="!hasPermission('Edit')" [value]="pegarValor(propriedade.nome, tarefa)" [(ngModel)]="conteudoInput" (input)="definirPropriedades($event)" [id]="propriedade.nome">
+                    <button (click)="definirPropriedades()">salvar</button>
                   </div>
                   <!--ngIf for select-->
                   <div *ngIf="propriedade.tipo == 'select' && propriedade.esconder == false">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.repository';
+import { CookieService } from '../app/cookie.service';
 
 interface Tarefa {
   nome: string,
@@ -20,6 +21,7 @@ interface Propriedade {
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
+  conteudoInput:string;
   title = 'todo-app';
   nome: string = '';
   tarefas: Tarefa[] = this.defineLista();
@@ -34,14 +36,20 @@ export class TodoComponent implements OnInit {
   aparecido: string = "./imagens/olho.png";
   quadrado: boolean = false;
   ordenaSelect: boolean = false;
-  private userId: string = 'joao';
+  
   private users: User[] = [];
   user!: User;
+   userLocalStorage = JSON.parse(this.cookieService.getCookie("UsuarioLogado"))
+  idString = JSON.stringify(this.userLocalStorage.id);
+  constructor(private userRepository: UserRepository,private cookieService:CookieService) {
+    userRepository.getUsers().subscribe({
+      next: (value) => {
+        console.log(value)
+        this.getUsuarioLogado();
+      }
+    })
 
-  constructor(private userRepository: UserRepository) {
-    this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
+    this.tarefas = JSON.parse(localStorage.getItem(this.idString))
   }
 
   tarefa = {
@@ -63,15 +71,17 @@ export class TodoComponent implements OnInit {
     JSON.parse(localStorage.getItem("listaPropriedade"));
   }
 
-  private getUsuarioLogado(): User {
-    return this.users.find((user) => user.id === this.userId) as User;
+    getUsuarioLogado(): User {
+    return this.users.find((user) => user.id === this.user.id) as User;
   }
 
   defineLista(): Tarefa[] {
     let a: Tarefa[] = [];
-    if (localStorage.getItem('lista') != null) {
-      return JSON.parse(localStorage.getItem("lista"));
+    if (localStorage.getItem(this.idString) != null) {
+      console.log("Entrou")
+      return JSON.parse(localStorage.getItem(this.idString));
     }
+    console.log("não Entrou")
     return a;
   }
 
@@ -84,6 +94,7 @@ export class TodoComponent implements OnInit {
   }
 
   defineCategoria(): string[] {
+    
     let a: string[] = [];
     if (localStorage.getItem('listaCategoria') != null) {
       return JSON.parse(localStorage.getItem("listaCategoria"));
@@ -92,6 +103,7 @@ export class TodoComponent implements OnInit {
   }
 
   cadastrarTarefa(): void {
+
     const trf: Tarefa = {
       nome: this.tarefa.nome,
       conteudo: this.tarefa.conteudo,
@@ -109,7 +121,7 @@ export class TodoComponent implements OnInit {
           this.tarefa.categoria = 'Sem Categoria';
           trf.categoria = 'Sem Categoria';
           this.tarefas.push(trf);
-          localStorage.setItem('lista', JSON.stringify(this.tarefas));
+          localStorage.setItem(this.idString,JSON.stringify(this.tarefas));
           this.aparecer = false;
           this.adicionarTarefa = this.adicionar;
         } else {
@@ -117,7 +129,7 @@ export class TodoComponent implements OnInit {
           trf.categoria = 'Sem Categoria';
           this.tarefa.categoria = '';
           this.tarefas.push(trf);
-          localStorage.setItem('lista', JSON.stringify(this.tarefas));
+          localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
           this.tarefa.nome = null;
           this.aparecer = false;
           this.adicionarTarefa = this.adicionar;
@@ -126,7 +138,7 @@ export class TodoComponent implements OnInit {
         this.tarefa.nome = null;
         this.tarefa.categoria = '';
         this.tarefas.push(trf);
-        localStorage.setItem('lista', JSON.stringify(this.tarefas));
+        localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
         this.aparecer = false;
         this.adicionarTarefa = this.adicionar;
       }
@@ -149,13 +161,13 @@ export class TodoComponent implements OnInit {
       return;
     } else {
       this.tarefas.splice(indice, 1);
-      localStorage.setItem('lista', JSON.stringify(this.tarefas));
+      localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
     }
   
     }
 
   mudar(): void {
-    localStorage.setItem('lista', JSON.stringify(this.tarefas));
+    localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
   }
 
   aparecerInput(): boolean {
@@ -170,7 +182,8 @@ export class TodoComponent implements OnInit {
   }
 
   hasPermission(permission: string): boolean {
-    return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    //return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    return true
   }
 
   dragEnd(tarefa: Tarefa) {
@@ -180,7 +193,7 @@ export class TodoComponent implements OnInit {
     } else {
       tarefa.categoria = JSON.parse(localStorage.getItem('categoriaDrag'));  
       let indice = JSON.parse(localStorage.getItem('indice'));
-      localStorage.setItem('lista', JSON.stringify(this.tarefas));
+      localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
       this.quadrado = false;
       this.tarefas.splice(indice + 1, 0);
       this.tarefas.splice(this.tarefas.indexOf(tarefa), 1);
@@ -222,20 +235,10 @@ export class TodoComponent implements OnInit {
 
   i = 0;
 
-  definirPropriedades(event): void {
-    const evet = event.target as HTMLInputElement;
-    let permissao = true;
-    for (let propriedade of this.tarefa.conteudo) {
-      if (propriedade.nome == evet.id) {
-        this.tarefa.conteudo[this.tarefa.conteudo.indexOf(propriedade)].valor = evet.value;
-        permissao = false;
-      }
-    }
-    if (permissao) {
-      this.tarefa.conteudo.push({ nome: evet.id, valor: evet.value });
-    }
+  definirPropriedades(): void {
+      this.tarefa.conteudo.push(this.conteudoInput);
+      localStorage.setItem(this.idString, JSON.stringify(this.tarefa));
   }
-
   esconderPropriedadeFuncao(propriedade): void {
     if (!propriedade.esconder) {
       propriedade.esconder = true;

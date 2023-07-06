@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.repository';
+import { CookieService } from '../app/cookie.service';
 
 interface tarefa {
   nome: string
@@ -25,11 +26,15 @@ export class CategoriaComponent implements OnInit {
   private userId: string = 'joao';
   private users: User[] = [];
   user!: User;
+  userLocalStorage = JSON.parse(this.cookieService.getCookie("UsuarioLogado"))
+  idString = JSON.stringify(this.userLocalStorage.id);
 
-  constructor(private userRepository: UserRepository) {
-    this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
+  constructor(private userRepository: UserRepository,private cookieService:CookieService) {
+    userRepository.getUsers().subscribe({
+      next: (value) => {
+        console.log(value)
+      }
+    })
   }
 
   tarefa = {
@@ -39,8 +44,8 @@ export class CategoriaComponent implements OnInit {
   }
   defineLista(): tarefa[] {
     let a: tarefa[] = [];
-    if (localStorage.getItem('lista') != null) {
-      return JSON.parse(localStorage.getItem("lista"))
+    if (localStorage.getItem(this.idString) != null) {
+      return JSON.parse(localStorage.getItem(this.idString))
     }
     return a;
   }
@@ -80,7 +85,7 @@ export class CategoriaComponent implements OnInit {
         this.tarefas.splice(this.tarefas.indexOf(tarefa), 1);
       }
     }
-    localStorage.setItem('lista', JSON.stringify(this.tarefas));
+    localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
     this.categorias.splice(indice, 1);
     localStorage.setItem('listaCategoria', JSON.stringify(this.categorias));
   }
@@ -113,7 +118,8 @@ export class CategoriaComponent implements OnInit {
     }
   }
   hasPermission(permission: string): boolean {
-    return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    //return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    return true
   }
   private getUsuarioLogado(): User {
     return this.users.find((user) => user.id === this.userId) as User;

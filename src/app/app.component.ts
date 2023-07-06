@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/users/user';
-import { UserRepository } from 'src/repositories/user.repository';
+import { UserRepository } from '../repositories/user.repository';
+// import { CookieService } from 'ngx-cookie-service';
+
 
 
 
@@ -16,26 +18,18 @@ export class AppComponent implements OnInit {
   adicionarTarefa: String = this.adicionar;
   title = "teste-app";
 
-  private userId: string = 'davi';
   private users:User[] = [];
   private user:User|undefined;
 
-  constructor(
-
-    private userRepository: UserRepository
-  ){
-    this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
-  }
-
-
-  private getUsuarioLogado():User{
-    return this.users.find((user) => {
-    return user.id === this.userId
-    });
-  }
   
+  constructor(private userRepository: UserRepository){
+    userRepository.getUsers().subscribe({
+      next: (value) => {
+        this.users = value
+        console.log(this.users)
+      }
+    })
+  }
 
 
   aparecerInput(): boolean {

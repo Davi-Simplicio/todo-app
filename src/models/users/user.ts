@@ -1,7 +1,8 @@
 export class User {
-        id: String = '';
-        name: String = '';
-        groups: String[] = [];
-        cardPermissions: String[] = [];
-        propertiesPermissions: String[] = [];
+        id: string = '';
+        nome: string = '';
+        email:string = '';
+        senha:string = '';
     }
+     
+    

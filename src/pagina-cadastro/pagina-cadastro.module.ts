@@ -1,23 +1,19 @@
 import { CommonModule } from "@angular/common";
-import { NgModule, OnInit } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TodoComponent } from "./todo.component";
+import { PaginaCadastroComponent } from "./pagina-cadastro.component";
 
 @NgModule({
     declarations: [
-        TodoComponent
+        PaginaCadastroComponent
     ],
     imports: [
         CommonModule,
         FormsModule
     ],
     exports: [
-        TodoComponent
+        PaginaCadastroComponent
     ]
 })
 
-
-
-export class TodoModule {
-
-}
+export class PaginaCadastroModule { }

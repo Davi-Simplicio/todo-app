@@ -7,11 +7,17 @@ import { CategoriaModule} from 'src/categoria/categoria.module';
 import { TodoModule} from 'src/todo/todo.module';
 import { PropriedadeModule } from 'src/propriedade/propriedade.module';
 import { UserRepository } from 'src/repositories/user.repository';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuardService } from 'src/services/auth-guard.service';
+import { PaginaCadastroComponent } from '../pagina-cadastro/pagina-cadastro.component';
+import { PaginaLoginComponent } from 'src/pagina-login/pagina-login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaginaCadastroComponent,
+    PaginaLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -19,10 +25,14 @@ import { UserRepository } from 'src/repositories/user.repository';
     AppRoutingModule,
     CategoriaModule,
     TodoModule,
-    PropriedadeModule
+    PropriedadeModule,
+    HttpClientModule
   ],
   providers: [
-    UserRepository
+    UserRepository,
+    AuthGuardService
+    
+
   ],
   bootstrap: [AppComponent]
 })

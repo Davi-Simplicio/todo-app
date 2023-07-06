@@ -1,0 +1,13 @@
+<h1>CADASTRO</h1>
+
+<div class="cadastro">
+  <h6>Digite seu Nicknome</h6>
+  <input type="text" placeholder="Nickname" [(ngModel)]="id">
+  <h6>Digite seu Nome</h6>
+  <input type="text" placeholder="Nome" [(ngModel)]="nome">
+  <h6>Digite seu E-mail</h6>
+  <input type="text" placeholder="E-mail"[(ngModel)]="email">
+  <h6>Digite seu Senha</h6>
+  <input type="password" placeholder="Senha"[(ngModel)]="senha">
+  <button (click)="cadastraUsuario()">Cadastrar</button>
+</div>

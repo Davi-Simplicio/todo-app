@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.repository';
+import { CookieService } from '../app/cookie.service';
 
 interface Tarefa {
   nome: string;
@@ -35,11 +36,15 @@ export class PropriedadeComponent implements OnInit {
   private userId: string = 'joao';
   private users: User[] = [];
   user!: User;
+  userLocalStorage = JSON.parse(this.cookieService.getCookie("UsuarioLogado"))
+  idString = JSON.stringify(this.userLocalStorage.id);
 
-  constructor(private userRepository: UserRepository) {
-    this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
+  constructor(private userRepository: UserRepository,private cookieService:CookieService) {
+      userRepository.getUsers().subscribe({
+      next: (value) => {
+        console.log(value)
+      }
+    })
   }
 
   tarefa = {
@@ -58,8 +63,8 @@ export class PropriedadeComponent implements OnInit {
 
   defineLista(): Tarefa[] {
     let a: Tarefa[] = [];
-    if (localStorage.getItem('lista') != null) {
-      return JSON.parse(localStorage.getItem("lista"));
+    if (localStorage.getItem(this.idString) != null) {
+      return JSON.parse(localStorage.getItem(this.idString));
     }
     return a;
   }
@@ -108,7 +113,7 @@ export class PropriedadeComponent implements OnInit {
       }
     }
 
-    localStorage.setItem('lista', JSON.stringify(this.tarefas));
+    localStorage.setItem(this.idString, JSON.stringify(this.tarefas));
     this.propriedades.splice(indice, 1);
     localStorage.setItem('listaPropriedade', JSON.stringify(this.propriedades));
   }
@@ -171,7 +176,8 @@ export class PropriedadeComponent implements OnInit {
     }
   }
   hasPermission(permission: string): boolean {
-    return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    //return this.user.cardPermissions.some((cardPermission) => cardPermission === permission);
+    return true
   }
   private getUsuarioLogado(): User {
     return this.users.find((user) => user.id === this.userId) as User;
